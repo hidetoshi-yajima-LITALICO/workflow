@@ -1,0 +1,36 @@
+name: "test"
+on:
+  push:
+    branches:
+      - test
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-22.04
+    timeout-minutes: 3
+
+    steps:
+      - name: Checkout taraf-r2-202104-api
+        uses: actions/checkout@v3
+        #if: ${{ github.event.inputs.app_name == 'r2-202104-api-phpfpm' }}
+        with:
+          repository: litalico-engineering/taraf-r2-202104-api
+          #ref: ${{ steps.set_image_tag.outputs.deploy-image-tag }}
+          ref: "2a35bf6529eaa81ebb88c40d9fe1afd7018151ea"
+          path: taraf-r2-202104-api
+          token: ${{ env.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Update submodule
+        #if: ${{ github.event.inputs.app_name == 'r2-202104-api-phpfpm' }}
+        working-directory: taraf-r2-202104-api
+        run: |
+          git submodule update --init --recursive
+          cd resources/template
