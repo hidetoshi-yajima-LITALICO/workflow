@@ -32,6 +32,7 @@ jobs:
         #if: ${{ github.event.inputs.app_name == 'r2-202104-api-phpfpm' }}
         working-directory: taraf-r2-202104-api
         run: |
+          git remote set-url origin https://hidetoshi-yajima-LITALICO:${{ env.${{ env.PERSONAL_ACCESS_TOKEN }} }}@github.com/litalico-engineering/r2-document-xlsx-template.git
           git submodule update --init --recursive
           cd resources/template
 
