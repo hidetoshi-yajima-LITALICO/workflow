@@ -32,7 +32,7 @@ jobs:
         #if: ${{ github.event.inputs.app_name == 'r2-202104-api-phpfpm' }}
         working-directory: taraf-r2-202104-api
         run: |
-          git config --global url."https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/".insteadOf ssh://git@github.com/
+          git config --global url."https://${{ env.PERSONAL_ACCESS_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
           git submodule update --init --recursive
           cd resources/template
 
