@@ -34,3 +34,4 @@ jobs:
         run: |
           git submodule update --init --recursive
           cd resources/template
+
